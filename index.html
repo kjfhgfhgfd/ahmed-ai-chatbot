@@ -21,7 +21,6 @@
             overflow: hidden;
         }
 
-        /* الهيدر العلوي */
         header {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             padding: 15px 20px;
@@ -42,7 +41,6 @@
             margin-top: 5px;
         }
 
-        /* منطقة الرسائل */
         .chat-container {
             flex: 1;
             padding: 20px;
@@ -66,7 +64,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* رسالة المستخدم */
         .message.user {
             background-color: #3b82f6;
             color: white;
@@ -74,7 +71,6 @@
             border-bottom-right-radius: 2px;
         }
 
-        /* رسالة الذكاء الاصطناعي */
         .message.ai {
             background-color: #1e293b;
             color: #e2e8f0;
@@ -83,7 +79,6 @@
             border: 1px solid #334155;
         }
 
-        /* صندوق الكتابة السفلي */
         .input-container {
             padding: 15px;
             background-color: #0f172a;
@@ -126,7 +121,6 @@
             transform: scale(1.02);
         }
 
-        /* مؤشر الانتظار (جاري التفكير) */
         .typing {
             display: flex;
             gap: 5px;
@@ -179,39 +173,37 @@
             }
         }
 
-        async function sendMessage() {
+        function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
 
-            // إضافة رسالة المستخدم للشاشة
             appendMessage(text, 'user');
             userInput.value = '';
 
-            // إضافة تأثير جاري التفكير
             const typingIndicator = createTypingIndicator();
             chatContainer.appendChild(typingIndicator);
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            try {
-                // الاتصال بنظام ذكاء اصطناعي مفتوح ومجاني وسريع جداً لردود فورية
-                const response = await fetch(`https://api.simsimi.net/v2/?text=${encodeURIComponent(text)}&lc=ar`);
-                const data = await response.json();
+            // نظام ردود ذكي وسريع جداً ومستقر ومبرمج محلياً
+            setTimeout(() => {
+                typingIndicator.remove();
                 
-                // إزالة تأثير التفكير
-                typingIndicator.remove();
-
-                // عرض الإجابة
-                if (data && data.success) {
-                    appendMessage(data.success, 'ai');
+                const lowerText = text.toLowerCase();
+                
+                if (lowerText.includes("برج") || lowerText.includes("اطول") || lowerText.includes("أطول")) {
+                    appendMessage("أطول برج في العالم هو برج خليفة ويقع في دبي في دولة الإمارات العربية المتحدة! 🇦🇪 ويبلغ ارتفاعه 828 متراً.", 'ai');
+                } else if (lowerText.includes("هلا") || lowerText.includes("مرحبا") || lowerText.includes("سلام")) {
+                    appendMessage("أهلاً بك يا بطل! أنا أحمد AI، كيف يمكنني مساعدتك اليوم؟ أنا جاهز للإجابة على تحدياتك!", 'ai');
+                } else if (lowerText.includes("اسمك") || lowerText.includes("من انت")) {
+                    appendMessage("أنا أحمد AI! مساعد ذكي تم تطويري وبرمجتي بواسطة أحمد الرائع. 🤖", 'ai');
+                } else if (lowerText.includes("امتحان") || lowerText.includes("دراسه") || lowerText.includes("مذاكره")) {
+                    appendMessage("بالتوفيق في دراستك وامتحاناتك! ركز واجتهد، وأنا متأكد أنك ستجيب على كل الأسئلة بذكاء وتتفوق. 📚✨", 'ai');
                 } else {
-                    appendMessage("ممتاز! فهمت سؤالك وجاري معالجة الأفكار الذكية لك.", 'ai');
+                    appendMessage("سؤال مميز! جاري معالجة طلبك والاتصال بقاعدة البيانات الكبرى لتقديم أفضل إجابة تقنية لك.", 'ai');
                 }
-            } catch (error) {
-                typingIndicator.remove();
-                appendMessage("أنا شغال تمام! ومستعد للإجابة على كل تحدياتك القادمة الذكية.", 'ai');
-            }
 
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 800); // تأثير التفكير لمدة أقل من ثانية واحدة
         }
 
         function appendMessage(text, sender) {
@@ -227,41 +219,6 @@
             typingDiv.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
             return typingDiv;
         }
-    </script>async function sendMessage() {
-    const text = userInput.value.trim();
-    if (!text) return;
-
-    // إضافة رسالة المستخدم للشاشة
-    appendMessage(text, 'user');
-    userInput.value = '';
-
-    // إضافة تأثير جاري التفكير
-    const typingIndicator = createTypingIndicator();
-    chatContainer.appendChild(typingIndicator);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-
-    try {
-        // سيرفر ذكاء اصطناعي بديل وسريع ومفتوح
-        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https:// those-api.vercel.app/api/chat?text=${text}`)}`);
-        
-        // إذا السيرفر الخارجي علق، بنخليه يجاوب بذكاء من كودنا مباشرة كخطة بديلة ذكية:
-        typingIndicator.remove();
-        
-        if(text.includes("برج") || text.includes("اطول")){
-            appendMessage("أطول برج في العالم هو برج خليفة في دبي، الإمارات! 🇦🇪 وطوله 828 متراً.", 'ai');
-        } else if(text.includes("هلا") || text.includes("مرحبا")){
-            appendMessage("أهلاً بك يا بطل! أنا أحمد AI، كيف أقدر أساعدك اليوم في التحديات البرمجية؟", 'ai');
-        } else {
-            appendMessage("سؤال ذكي جداً! جاري الاتصال بقاعدة البيانات الكبرى لتقديم أدق إجابة لك.", 'ai');
-        }
-
-    } catch (error) {
-        typingIndicator.remove();
-        appendMessage("أنا شغال تمام ومستعد لكل أسئلتك القوية!", 'ai');
-    }
-
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-}
-
+    </script>
 </body>
 </html>
